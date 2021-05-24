@@ -1,0 +1,35 @@
+{
+  "name": "goit-js-hw-12-countries",
+  "version": "1.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "parcel src/*.html",
+    "build": "parcel build src/*.html --public-url /goit-js-hw-12-countries/",
+    "deploy": "gh-pages -d dist",
+    "predeploy": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dovzhenko-olga/goit-js-hw-12-countries.git"
+  },
+  "keywords": [],
+  "author": "Dovzhenko Olga",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dovzhenko-olga/goit-js-hw-12-countries/issues"
+  },
+  "homepage": "https://Dovzhenko-olga.github.io/goit-js-hw-12-countries",
+  "devDependencies": {
+    "gh-pages": "^3.1.0",
+    "parcel-bundler": "^1.12.5",
+    "parcel-plugin-handlebars-precompile": "^1.0.2",
+    "parcel-plugin-nuke-dist": "^1.0.1",
+    "pnotify": "^5.2.0",
+    "posthtml-include": "^1.6.2",
+    "sass": "^1.32.8"
+  },
+  "dependencies": {
+    "lodash.debounce": "^4.0.8"
+  }
+}
