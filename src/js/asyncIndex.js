@@ -13,7 +13,7 @@ search.addEventListener('input', debounce(onSearch, 500));
 
 async function onSearch(e) {
 
-  resetPage();
+  updateMarcup();
 
   const searchQuery = e.target.value;
 
@@ -35,27 +35,31 @@ async function onSearch(e) {
       });
     }
     if (countries.length <= 10 && countries.length > 1) {
-      createList(countries);
+      updateMarcup(listTpl(countries));
     }
     if (countries.length === 1) {
-      createCard(countries);
+      updateMarcup(cardTpl(countries));
     }
   } catch(error) {
     onFetchError(error);
   }
 }
 
-function createList(countries) {
-  listContainer.innerHTML = listTpl(countries);
-}
 
-function createCard(country) {
-  listContainer.innerHTML = cardTpl(country);
+function updateMarcup(markup = "") {
+listContainer.innerHTML = markup;
 }
+// function createList(countries) {
+//   listContainer.innerHTML = listTpl(countries);
+// }
 
-function resetPage() {
-  listContainer.innerHTML = '';
-}
+// function createCard(country) {
+//   listContainer.innerHTML = cardTpl(country);
+// }
+
+// function resetPage() {
+//   listContainer.innerHTML = '';
+// }
 
 function onFetchError(err) {
   error({
