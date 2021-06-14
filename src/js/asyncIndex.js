@@ -1,5 +1,6 @@
 import listTpl from '/templates/listTpl.hbs';
 import cardTpl from '/templates/cardTpl.hbs';
+import DropDownList from '/js/listOfCountry.js';
 import { debounce } from 'lodash';
 import '/sass/main.scss';
 import fetchCountries from '/js/asyncCountries';
@@ -9,17 +10,18 @@ import '@pnotify/core/dist/BrightTheme.css';
 const search = document.querySelector('.js-search-form');
 const listContainer = document.querySelector('.js-articles-container');
 
+
 search.addEventListener('input', debounce(onSearch, 500));
 
 async function onSearch(e) {
-
+  
   updateMarcup();
-
+  
   const searchQuery = e.target.value;
-
+  
   try {
     const countries = await fetchCountries(searchQuery);
-  
+
     if (countries.length > 10) {
       error({
         text: 'Too many matches found. Please enter a more specific query!',
@@ -35,7 +37,12 @@ async function onSearch(e) {
       });
     }
     if (countries.length <= 10 && countries.length > 1) {
-      updateMarcup(listTpl(countries));
+      const countryArray = countries.reduce((acc, country) => {
+      acc.push(country.name);
+      return acc
+    }, []);
+      const dropDownList = new DropDownList({ element: search, countryArray });
+      console.log(dropDownList);
     }
     if (countries.length === 1) {
       updateMarcup(cardTpl(countries));

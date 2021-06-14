@@ -54,3 +54,26 @@ body {
 .accent {
   font-weight: 700;
 }
+.drop-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 5px 0 0 0;
+  max-height: 400px;
+  overflow: auto;
+}
+
+.drop-item {
+  padding: 7px;
+  background: transparent;
+  color: black;
+  margin-bottom: 2px;
+}
+
+.drop-item:focus,
+.drop-item:hover {
+  color: blue;
+}
+
+.drop-item:active {
+  color: tomato;
+}
