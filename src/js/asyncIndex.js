@@ -1,17 +1,22 @@
-import listTpl from '/templates/listTpl.hbs';
+// import listTpl from '/templates/listTpl.hbs';
 import cardTpl from '/templates/cardTpl.hbs';
-import DropDownList from '/js/listOfCountry.js';
+import selectCountry from '/js/selectCountry.js';
 import { debounce } from 'lodash';
 import '/sass/main.scss';
-import fetchCountries from '/js/asyncCountries';
+import fetchCountries from '/js/asyncCountries.js';
 import { error } from '@pnotify/core';
 import '@pnotify/core/dist/BrightTheme.css';
 
 const search = document.querySelector('.js-search-form');
 const listContainer = document.querySelector('.js-articles-container');
+const dropdown = document.querySelector('.js-dropdown');
+dropdown.hidden = true;
 
 
 search.addEventListener('input', debounce(onSearch, 500));
+dropdown.addEventListener('click', e =>
+    selectCountry(e, search, dropdown),
+);
 
 async function onSearch(e) {
   
@@ -37,12 +42,14 @@ async function onSearch(e) {
       });
     }
     if (countries.length <= 10 && countries.length > 1) {
+      dropdown.hidden = false;
+
       const countryArray = countries.reduce((acc, country) => {
       acc.push(country.name);
       return acc
     }, []);
-      const dropDownList = new DropDownList({ element: search, countryArray });
-      console.log(dropDownList);
+
+      return dropdown.innerHTML = countryArray.map(elem => `<li class="drop-item">${elem}</li>`).join('');
     }
     if (countries.length === 1) {
       updateMarcup(cardTpl(countries));
